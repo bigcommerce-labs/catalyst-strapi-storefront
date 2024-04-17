@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Have questions or ideas about this integration?
+    url: https://github.com/bigcommerce/catalyst/discussions/categories/integrations
+    about: Post on the integration section of Catalyst's GitHub Discussions to start the convo. We actively watch for new discussions. See you there!
+  - name: Need help with Catalyst?
+    url: https://github.com/bigcommerce/catalyst/discussions/new?category=q-a
+    about: If you can't get something to work the way you expect, jump over to Catalyst's GitHub Discussions to browse existing topics or to share a new post.
