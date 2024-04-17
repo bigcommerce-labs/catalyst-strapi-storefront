@@ -12,7 +12,6 @@ This repo houses the Catalyst app. Which renders the storefront using BigCommerc
 
 To run the associated Strapi app you'll want to head to: https://github.com/bigcommerce-labs/catalyst-strapi-backend
 
-
 ## Demo site
 
 For a working demo of this Strapi integration with Catalyst, see the following example:
@@ -36,7 +35,33 @@ To follow this guide, you need the following:
 - A Strapi instance with the associated Blog and Customer Service content models
 
 > [!IMPORTANT]
-> We recommend setting up the Strapi instance *first* since you'll need API credentials as part of this project's .env variables: https://github.com/bigcommerce-labs/catalyst-strapi-backend
+> We recommend setting up the Strapi instance _first_ since you'll need API credentials as part of this project's .env variables: https://github.com/bigcommerce-labs/catalyst-strapi-backend
+
+## Integration overview
+
+The integration into Strapi is comprised of only a few extra directories and files. This repo contains both those files and the core Catalyst reference storefront app, so you easily try it from one place. It makes the deploy process easier.
+
+_If you already have a Catalyst storefront project, these files can be copy pasted directly into it!_
+
+Either route requires you to set up the separate Strapi repo so you have the associated models and Strapi API running.
+
+**Key integration directories:**
+```shell
+...
+├── app
+    └── [locale]
+        └──
+            (default)
+                ...
+                └── blog
+                    # The blog directory has minor changes (just a few lines) to utilize Strapi instead of BigCommerce's blog API. The data fetcher inside the integrations folder and Strapi's blocks-react-renderer does most of the work. This replaces the default blog directory if you are copy pasting into an existing Catalyst project.
+                ...
+                └── customer-service
+                    # The customer-service directory is a new route, not within the default Catalyst storefront route set. It contains a landing page that lists all the question categories and a route that lists answers to questions in that category.
+├── integrations/
+    └── strapi
+        # Contains the Strapi API fetch functions for blog, customer service, and global site content. Error handling and transformation of Strapi's API response into what fits better with existing Catalyst components (like those in the blog) happens here. There is a client component wrapper for blocks-react-renderer as well, since that library doesn't have native RSC support yet.
+```
 
 ## Quick start
 
@@ -48,17 +73,20 @@ It will automatically set the Bigcommerce specific env variables for you.
 
 ## Setup
 
-1. Clone this repo: 
+1. Clone this repo:
+
 ```shell copy
 git clone https://github.com/bigcommerce-labs/catalyst-strapi-storefront.git
 ```
 
-2. Install dependences: 
+2. Install dependences:
+
 ```shell copy
 npm install
 ```
 
 3. Copy the sample .env file so you can edit your local environment variables:
+
 ```shell copy
 cp .env.example .env.local
 ```
@@ -68,6 +96,7 @@ cp .env.example .env.local
 5. Copy over the `STRAPI_BASE_URL` and `STRAPI_API_KEY` values from your Strapi instance. If running locally, you probably only need to change the `STRAPI_API_KEY` value.
 
 6. Start Catalyst:
+
 ```shell copy
 npm run dev
 ```
@@ -77,10 +106,8 @@ npm run dev
 - http://localhost:3000/blog/
 - http://localhost:3000/customer-service/
 
-
 > [!TIP]
 > Don't see anything there? Keep in mind you need to be running Strapi at the same time as well.
-
 
 ## Resources
 
